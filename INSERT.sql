@@ -102,13 +102,6 @@ VALUES
 ('pop sa', 2022);
 
 
-
---DROP TABLE trackscollections 
-
---DROP TABLE collections 
-
-
-
 INSERT INTO TracksCollections (track_id, coll_id)
 VALUES
 (10, 1),
