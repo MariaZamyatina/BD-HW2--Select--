@@ -1,0 +1,53 @@
+CREATE TABLE IF NOT EXISTS Ganres (
+id SERIAL PRIMARY KEY,
+name VARCHAR(60) UNIQUE  NOT NULL 
+);
+
+CREATE TABLE IF NOT EXISTS Artists (
+id SERIAL PRIMARY KEY,
+name VARCHAR(150) UNIQUE NOT NULL
+);
+
+
+CREATE TABLE IF NOT EXISTS Albums (
+id SERIAL PRIMARY KEY,
+name VARCHAR(100) NOT NULL,
+release_year INTEGER NOT NULL
+CHECK (release_year BETWEEN 1950 AND 2022)
+);
+
+CREATE TABLE IF NOT EXISTS ArtistsGanres (
+artist_id INTEGER REFERENCES Artists(id),
+ganre_id INTEGER REFERENCES Ganres(id),
+CONSTRAINT ag PRIMARY KEY(artist_id,ganre_id) 
+);
+
+
+CREATE TABLE IF NOT EXISTS ArtistsAlbums (
+artist_id INTEGER REFERENCES Artists(id),
+album_id INTEGER REFERENCES Albums(id),
+CONSTRAINT aa PRIMARY KEY(artist_id,album_id) 
+);
+
+CREATE TABLE IF NOT EXISTS Tracks (
+id SERIAL PRIMARY KEY,
+name VARCHAR(100) NOT NULL,
+duration INTEGER NOT NULL,
+album_id INTEGER REFERENCES Albums(id)
+CHECK (duration BETWEEN 90 AND 600)
+);
+
+
+CREATE TABLE IF NOT EXISTS Collections (
+id SERIAL PRIMARY KEY,
+name VARCHAR(100) NOT NULL,
+release_year INTEGER NOT NULL
+CHECK (release_year BETWEEN 1950 AND 2022)
+);
+
+CREATE TABLE IF NOT EXISTS TracksCollections (
+track_id INTEGER REFERENCES Tracks(id),
+coll_id INTEGER REFERENCES Collections(id),
+CONSTRAINT tc PRIMARY KEY(track_id,coll_id)
+);
+
